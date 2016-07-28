@@ -28,7 +28,10 @@ void setup() {
 	pinMode(gear, OUTPUT);
 	pinMode(13, OUTPUT);
 	pinMode(12, OUTPUT);
+	pinMode(11, OUTPUT);
 	pinMode(10, OUTPUT);
+	pinMode(2, OUTPUT);
+	pinMode(3, OUTPUT);
 	while (!Serial) {
 		// wait for serial port to connect. Needed for Leonardo only
 	}
@@ -61,18 +64,26 @@ void loop() {
 				blin = Data.substring(indexCount, charIndex);
 				blin.toCharArray(floatbufVar, sizeof(floatbufVar));
 				data[i] = atof(floatbufVar);
+				/*
 				Serial.print("data[");
 				Serial.print(i);
 				Serial.print("] = ");
 				Serial.println(data[i]);
+				*/
 				indexCount = charIndex + 1;
 			}
+			if (data[0] > 0 && data[0] < 1.0) {
+				digitalWrite(11, HIGH);
+			}
+			else {
+				digitalWrite(11, LOW);
+			} 
 			if (data[0] == 1) {
 				digitalWrite(13, HIGH);
 			}
 			else {
 				digitalWrite(13, LOW);
-			} 
+			}
 			if (data[1] == 1) {
 				digitalWrite(10, HIGH);
 			}
@@ -84,6 +95,18 @@ void loop() {
 			}
 			else {
 				digitalWrite(12, LOW);
+			}
+			if (data[3] >= 23) {
+				digitalWrite(2, HIGH);
+			}
+			else {
+				digitalWrite(2, LOW);
+			}
+			if (data[4] == 1) {
+				digitalWrite(3, HIGH);
+			}
+			else {
+				digitalWrite(3, LOW);
 			}
 
 			Data = "";
