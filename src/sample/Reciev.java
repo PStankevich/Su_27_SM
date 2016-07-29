@@ -34,7 +34,7 @@ public class Reciev {
             String[] elements = new String[] {"1", "2",
                     "3", "4", "5"};
             JComboBox combo = new JComboBox(elements);
-            combo.setSelectedIndex(1);
+            combo.setSelectedIndex(2);
             frame.add(combo);
 
 
@@ -55,7 +55,7 @@ public class Reciev {
             int port = 20083;
             serialPort = new SerialPort(com+comNum);
             serialPort.openPort();
-            serialPort.setParams(SerialPort.BAUDRATE_19200,
+            serialPort.setParams(SerialPort.BAUDRATE_115200,
                     SerialPort.DATABITS_8,
                     SerialPort.STOPBITS_1,
                     SerialPort.PARITY_NONE);

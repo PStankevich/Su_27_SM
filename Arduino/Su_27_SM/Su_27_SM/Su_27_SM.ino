@@ -30,7 +30,7 @@ int countDelay;
 int dataSize;
 
 void setup() {
-	Serial.begin(19200); // устанавливаем последовательное соединение
+	Serial.begin(115200); // устанавливаем последовательное соединение
 	pinMode(gear, OUTPUT);
 	pinMode(airBreak, OUTPUT);
 	pinMode(gearWarning, OUTPUT);
