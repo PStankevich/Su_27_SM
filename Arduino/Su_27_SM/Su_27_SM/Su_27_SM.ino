@@ -32,13 +32,12 @@ int dataSize;
 void setup() {
 	Serial.begin(19200); // устанавливаем последовательное соединение
 	pinMode(gear, OUTPUT);
-	pinMode(13, OUTPUT);
-	pinMode(12, OUTPUT);
-	pinMode(11, OUTPUT);
-	pinMode(10, OUTPUT);
-	pinMode(9, OUTPUT);
-	pinMode(2, OUTPUT);
-	pinMode(3, OUTPUT);
+	pinMode(airBreak, OUTPUT);
+	pinMode(gearWarning, OUTPUT);
+	pinMode(flaps, OUTPUT);
+	pinMode(flapsLand, OUTPUT);
+	pinMode(Noseflap, OUTPUT);
+	pinMode(masterWarning, OUTPUT);
 	while (!Serial) {
 		// wait for serial port to connect. Needed for Leonardo only
 	}
@@ -91,7 +90,7 @@ void loop() {
 			else {
 				digitalWrite(gear, LOW);
 			}
-			if (data[5] == 1) {
+			if (data[5] == 6) {
 				if (data[1] >= 0.24) {
 					digitalWrite(flaps, HIGH);
 				}
@@ -105,7 +104,7 @@ void loop() {
 						digitalWrite(flapsLand, LOW);
 					}
 			}
-			else if (data[5] == 2) {
+			else if (data[5] == 1) {
 				if (data[1] >= 1) {
 					digitalWrite(flaps, HIGH);
 				}

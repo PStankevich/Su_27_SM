@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Su27_SM:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Su27_SM_jar</output-path>
+    <root id="archive" name="Su27_SM.jar">
+      <element id="module-output" name="Su27_SM" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/jars/jssc.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
