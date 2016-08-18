@@ -10,10 +10,7 @@ import java.net.DatagramSocket;
 import java.util.Arrays;
 import java.awt.Dimension;
 import javax.swing.*;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 
 public class Reciev {
@@ -36,9 +33,6 @@ public class Reciev {
             JComboBox combo = new JComboBox(elements);
             combo.setSelectedIndex(2);
             frame.add(combo);
-
-
-
 
         frame.setPreferredSize(new Dimension(400, 200));
         frame.pack();

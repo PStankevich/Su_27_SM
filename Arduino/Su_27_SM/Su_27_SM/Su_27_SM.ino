@@ -5,6 +5,7 @@
 */
 
 #include <LiquidCrystal_I2C.h>
+#include <TimerOne-master\TimerOne.h>
 
 //#include <LiquidCrystal_I2C.h>
 #include <Wire.h>
@@ -28,6 +29,7 @@ int charIndex = 0;
 int charCount = 0;
 int countDelay;
 int dataSize;
+int dataAvailableCount;
 
 void setup() {
 	Serial.begin(115200); // устанавливаем последовательное соединение
@@ -90,7 +92,7 @@ void loop() {
 			else {
 				digitalWrite(gear, LOW);
 			}
-			if (data[5] == 6) {
+			if (data[5] == 6) {  //Если это Су 25 _____________________________________________________________________________
 				if (data[1] >= 0.24) {
 					digitalWrite(flaps, HIGH);
 				}
@@ -104,7 +106,7 @@ void loop() {
 						digitalWrite(flapsLand, LOW);
 					}
 			}
-			else if (data[5] == 1) {
+			else if (data[5] == 1) { //Если это Су 27 _________________________________________________________________________
 				if (data[1] >= 1) {
 					digitalWrite(flaps, HIGH);
 				}
@@ -135,8 +137,23 @@ void loop() {
 			}
 
 			Data = "";
+			dataAvailableCount = 0;
+		}
+	}else{
+		if (dataAvailableCount > 20000) {
+			Timer1.stop();
+			digitalWrite(gearWarning, LOW);
+			digitalWrite(gear, LOW);
+			digitalWrite(flaps, LOW);
+			digitalWrite(flapsLand, LOW);
+			digitalWrite(airBreak, LOW);
+			digitalWrite(Noseflap, LOW);
+			digitalWrite(masterWarning, LOW);
+		}else{
+			dataAvailableCount++;
 		}
 	}
 	indexCount = 0;
 	charIndex = 0;
 }
+
