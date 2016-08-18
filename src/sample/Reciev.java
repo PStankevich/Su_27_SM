@@ -8,24 +8,54 @@ import jssc.SerialPortException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.Arrays;
+import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class Reciev {
     private static SerialPort serialPort;
     private static String msg;
     private static int count;
     private static int countNum;
+    public static String data;
+    public static String com = "COM";
+    public static String comNum = "13";
+
+
+    public static void createGUI() {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JFrame frame = new JFrame("Su-27SM - " + data);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        String[] elements = new String[] {"1", "2",
+                "3", "4", "5"};
+        JComboBox combo = new JComboBox(elements);
+        combo.setSelectedIndex(2);
+        frame.add(combo);
+
+
+
+
+        frame.setPreferredSize(new Dimension(400, 200));
+        frame.pack();
+        frame.setVisible(true);
+
+    }
 
 
 
     public static void main(String args[]) {
+
         try {
+
             int port = 20083;
-
-
-
-            serialPort = new SerialPort("COM13");
+            serialPort = new SerialPort(com+comNum);
             serialPort.openPort();
-            serialPort.setParams(SerialPort.BAUDRATE_19200,
+            serialPort.setParams(SerialPort.BAUDRATE_115200,
                     SerialPort.DATABITS_8,
                     SerialPort.STOPBITS_1,
                     SerialPort.PARITY_NONE);
@@ -57,15 +87,19 @@ public class Reciev {
 
 
 
-
-    private static class PortReader implements SerialPortEventListener {
+    public static class PortReader implements SerialPortEventListener {
 
         public void serialEvent(SerialPortEvent event) {
             if(event.isRXCHAR() && event.getEventValue() > 0){
                 try {
-                    String data = serialPort.readString(event.getEventValue());
+                    data = serialPort.readString(event.getEventValue());
                     System.out.println();
                     System.out.println(data);
+                    javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            createGUI();
+                        }
+                    });
                 }
                 catch (SerialPortException ex) {
                     System.out.println(ex);
